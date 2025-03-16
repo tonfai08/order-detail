@@ -4,12 +4,12 @@ import OrderDetail from "@/components/OrderDetail";
 import Timeline from "@/components/Timeline";
 import { useEffect, useState } from "react";
 import { getCustomerByTwitter } from "@/services/customerService";
-import { mapCustomerToOrder } from "@/utils/helper";
+import { CustomerType, mapCustomerToOrder, OrderType } from "@/utils/helper";
 
 const CheckOderPage = () => {
   const [username, setUsername] = useState("");
-  const [customerData, setCustomerData] = useState(null);
-  const [orderDetail, setOrderDetail] = useState(null);
+  const [customerData, setCustomerData] = useState<CustomerType | null>(null);
+  const [orderDetail, setOrderDetail] = useState<OrderType | null>(null);
   const [error, setError] = useState("");
 
   const handleSearch = async () => {
@@ -19,13 +19,14 @@ const CheckOderPage = () => {
     }
     try {
       setError("");
-      const data = await getCustomerByTwitter(username);
-      const orderData: any = mapCustomerToOrder(data);
+      const data: CustomerType = await getCustomerByTwitter(username);
+      const orderData: OrderType = mapCustomerToOrder(data);
 
       setOrderDetail(orderData);
       setCustomerData(data);
     } catch (err) {
       setError("ไม่พบข้อมูลลูกค้า");
+      console.error(err);
     }
   };
 

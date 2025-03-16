@@ -1,21 +1,47 @@
 import { ReceiptText, Package, Truck, CheckCircle } from "lucide-react";
 import { ReactNode } from "react";
-export const mapCustomerToOrder = (customer: any) => {
-  return {
-    book1: customer.book1,
-    book2: customer.book2,
-    set: customer.setBook,
-    postType: customer.typeShipping,
-    totalPrice: customer.totalPrice,
-  };
-};
 
+export interface CustomerType {
+  _id: string;
+  twitter: string;
+  __v: number;
+  address: string;
+  book1: number;
+  book2: number;
+  createdAt: string;
+  name: string;
+  postId: string | null;
+  postStatus: string | null;
+  setBook: string;
+  slip: string;
+  status: string;
+  tel: string;
+  totalPrice: number;
+  typeShipping: string;
+}
 export interface Step {
   label: string;
   detail: string;
   completed: boolean;
   icon: ReactNode;
 }
+export interface OrderType {
+  book1: number;
+  book2: number;
+  set: string;
+  postType: string;
+  totalPrice: number;
+}
+
+export const mapCustomerToOrder = (customer: CustomerType): OrderType => {
+  return {
+    book1: customer.book1 ?? 0,
+    book2: customer.book2 ?? 0,
+    set: customer.setBook ?? "",
+    postType: customer.typeShipping ?? "",
+    totalPrice: customer.totalPrice ?? 0,
+  };
+};
 
 export const getDefaultSteps = (): Step[] => [
   {
