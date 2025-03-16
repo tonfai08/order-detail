@@ -36,6 +36,8 @@ const CheckOderPage = () => {
   };
   useEffect(() => {
     setError("");
+    setCustomerData(null);
+    setOrderDetail(null);
   }, [username]);
   return (
     <main className="min-h-screen bg-gray-950">
