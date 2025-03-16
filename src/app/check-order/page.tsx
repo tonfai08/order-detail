@@ -1,7 +1,6 @@
 "use client";
 
 import OrderDetail from "@/components/OrderDetail";
-import HorizontalTimeline from "@/components/Timeline";
 import Timeline from "@/components/Timeline";
 import { useState } from "react";
 

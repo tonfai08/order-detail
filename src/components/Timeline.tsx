@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CheckCircle, Circle, ReceiptText, Truck, Package } from "lucide-react";
+import { CheckCircle, ReceiptText, Truck, Package } from "lucide-react";
 
 const Timeline = ({
   direction: propDirection,
