@@ -1,16 +1,13 @@
 "use client";
 
 const OrderDetail = ({ orderData }: { orderData: any }) => {
-  console.log("orderData", orderData);
-
-  const order = {
+  const order: any = {
     book1: orderData?.book1 ?? 0,
     book2: orderData?.book2 ?? 0,
     set: orderData?.set ?? "",
     postType: orderData?.postType ?? "",
     totalPrice: orderData?.totalPrice ?? 0,
   };
-  console.log("order", order);
 
   return (
     <div className="flex flex-col items-start lg:items-center gap-6 p-4 md:p-6 relative text-white border border-gray-800 shadow-[0_0_20px_rgba(107,114,128,0.8)] rounded-md">

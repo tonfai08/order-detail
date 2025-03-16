@@ -1,5 +1,5 @@
 import { ReceiptText, Package, Truck, CheckCircle } from "lucide-react";
-
+import { ReactNode } from "react";
 export const mapCustomerToOrder = (customer: any) => {
   return {
     book1: customer.book1,
@@ -10,7 +10,14 @@ export const mapCustomerToOrder = (customer: any) => {
   };
 };
 
-export const getDefaultSteps = () => [
+export interface Step {
+  label: string;
+  detail: string;
+  completed: boolean;
+  icon: ReactNode;
+}
+
+export const getDefaultSteps = (): Step[] => [
   {
     label: "ตรวจสอบการชำระเงิน",
     detail: "ระบบกำลังตรวจสอบการชำระเงินของคุณ",

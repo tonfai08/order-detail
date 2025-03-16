@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CheckCircle, ReceiptText, Truck, Package } from "lucide-react";
-import { getDefaultSteps, getOrderSteps } from "@/utils/helper";
-
+import { getDefaultSteps, getOrderSteps, Step } from "@/utils/helper";
 const Timeline = ({
   customerData,
   direction: propDirection,
@@ -12,7 +10,7 @@ const Timeline = ({
   customerData: any;
 }) => {
   const [direction, setDirection] = useState(propDirection || "horizontal");
-  const [stepOrder, setStepOrder] = useState(getDefaultSteps());
+  const [stepOrder, setStepOrder] = useState<Step[]>(getDefaultSteps());
   useEffect(() => {
     if (!propDirection) {
       const handleResize = () => {
