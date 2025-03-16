@@ -1,13 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getDefaultSteps, getOrderSteps, Step } from "@/utils/helper";
+import {
+  CustomerType,
+  getDefaultSteps,
+  getOrderSteps,
+  Step,
+} from "@/utils/helper";
 const Timeline = ({
   customerData,
   direction: propDirection,
 }: {
   direction?: "horizontal" | "vertical";
-  customerData: any;
+  customerData: CustomerType;
 }) => {
   const [direction, setDirection] = useState(propDirection || "horizontal");
   const [stepOrder, setStepOrder] = useState<Step[]>(getDefaultSteps());

@@ -73,7 +73,7 @@ const CheckOderPage = () => {
           {error && <p className="text-red-400 mt-2">{error}</p>}
           {customerData && (
             <div className="px-2 py-6 md:px-6 ">
-              <OrderDetail orderData={orderDetail} />
+              {orderDetail && <OrderDetail orderData={orderDetail} />}
             </div>
           )}
 

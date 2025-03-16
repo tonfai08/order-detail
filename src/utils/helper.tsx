@@ -70,7 +70,7 @@ export const getDefaultSteps = (): Step[] => [
   },
 ];
 
-export const getOrderSteps = (orderData: any) => {
+export const getOrderSteps = (customerData: CustomerType) => {
   const baseSteps = [
     {
       label: "ตรวจสอบการชำระเงิน",
@@ -98,7 +98,7 @@ export const getOrderSteps = (orderData: any) => {
     },
   ];
 
-  switch (orderData.status) {
+  switch (customerData.status) {
     case "waiting-payment":
       return baseSteps.map((step) => ({ ...step, completed: false }));
     case "processing":
@@ -112,7 +112,7 @@ export const getOrderSteps = (orderData: any) => {
         completed: index < 2,
       }));
     case "shipped":
-      if (orderData.postStatus === "success") {
+      if (customerData.postStatus === "success") {
         return baseSteps.map((step) => ({ ...step, completed: true }));
       }
       return baseSteps;

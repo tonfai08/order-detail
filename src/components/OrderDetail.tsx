@@ -1,7 +1,9 @@
 "use client";
 
-const OrderDetail = ({ orderData }: { orderData: any }) => {
-  const order: any = {
+import { OrderType } from "@/utils/helper";
+
+const OrderDetail = ({ orderData }: { orderData: OrderType }) => {
+  const order: OrderType = {
     book1: orderData?.book1 ?? 0,
     book2: orderData?.book2 ?? 0,
     set: orderData?.set ?? "",
