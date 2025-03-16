@@ -2,10 +2,41 @@
 
 import OrderDetail from "@/components/OrderDetail";
 import Timeline from "@/components/Timeline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCustomerByTwitter } from "@/services/customerService";
 
 const CheckOderPage = () => {
   const [username, setUsername] = useState("");
+  const [customerData, setCustomerData] = useState(null);
+  const [error, setError] = useState("");
+
+  const handleSearch = async () => {
+    console.log("test");
+
+    if (!username.trim()) {
+      setError("กรุณากรอกชื่อผู้ใช้ Twitter");
+      return;
+    }
+
+    try {
+      setError("");
+      const data = await getCustomerByTwitter(username);
+      console.log("data", data);
+
+      setCustomerData(data);
+    } catch (err) {
+      setError("ไม่พบข้อมูลลูกค้า");
+    }
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+  useEffect(() => {
+    setError("");
+  }, [username]);
   return (
     <main className="min-h-screen bg-gray-950">
       <div className="container  mx-auto p-6 text-center">
@@ -22,26 +53,36 @@ const CheckOderPage = () => {
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                onKeyDown={handleKeyPress}
                 className="px-4 py-2 border-2 border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-200 text-white"
-                placeholder="Enter your username"
+                placeholder="Enter Twitter username"
               />
             </div>
             <div>
-              <button className="border border-gray-700 rounded-md text-white font-bold bg-gray-500 py-2 px-9 transition-all duration-200 hover:bg-gray-600 active:bg-gray-700">
+              <button
+                className="border border-gray-700 rounded-md text-white font-bold bg-gray-500 py-2 px-9 transition-all duration-200 hover:bg-gray-600 active:bg-gray-700"
+                onClick={handleSearch}
+              >
                 Enter
               </button>
             </div>
           </div>
-
-          <div className="px-2 py-6 md:px-6 ">
-            <OrderDetail />
-          </div>
+          {error && <p className="text-red-400 mt-2">{error}</p>}
+          {customerData && (
+            <div className="px-2 py-6 md:px-6 ">
+              <OrderDetail />
+            </div>
+          )}
 
           <div className="px-2 py-10 md:px-6 ">
-            <h2 className="p-4 text-2xl font-bold text-gray-300">
-              สถานะคำสั่งซื้อ
-            </h2>
-            <Timeline />
+            {customerData && (
+              <div>
+                <h2 className="p-4 text-2xl font-bold text-gray-300">
+                  สถานะคำสั่งซื้อ
+                </h2>
+                <Timeline />
+              </div>
+            )}
           </div>
         </div>
       </div>
