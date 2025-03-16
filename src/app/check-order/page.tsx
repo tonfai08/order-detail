@@ -4,25 +4,25 @@ import OrderDetail from "@/components/OrderDetail";
 import Timeline from "@/components/Timeline";
 import { useEffect, useState } from "react";
 import { getCustomerByTwitter } from "@/services/customerService";
+import { mapCustomerToOrder } from "@/utils/helper";
 
 const CheckOderPage = () => {
   const [username, setUsername] = useState("");
   const [customerData, setCustomerData] = useState(null);
+  const [orderDetail, setOrderDetail] = useState(null);
   const [error, setError] = useState("");
 
   const handleSearch = async () => {
-    console.log("test");
-
     if (!username.trim()) {
       setError("กรุณากรอกชื่อผู้ใช้ Twitter");
       return;
     }
-
     try {
       setError("");
       const data = await getCustomerByTwitter(username);
-      console.log("data", data);
+      const orderData: any = mapCustomerToOrder(data);
 
+      setOrderDetail(orderData);
       setCustomerData(data);
     } catch (err) {
       setError("ไม่พบข้อมูลลูกค้า");
@@ -70,7 +70,7 @@ const CheckOderPage = () => {
           {error && <p className="text-red-400 mt-2">{error}</p>}
           {customerData && (
             <div className="px-2 py-6 md:px-6 ">
-              <OrderDetail />
+              <OrderDetail orderData={orderDetail} />
             </div>
           )}
 
@@ -80,7 +80,7 @@ const CheckOderPage = () => {
                 <h2 className="p-4 text-2xl font-bold text-gray-300">
                   สถานะคำสั่งซื้อ
                 </h2>
-                <Timeline />
+                <Timeline customerData={customerData} />
               </div>
             )}
           </div>
