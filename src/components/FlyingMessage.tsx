@@ -7,47 +7,75 @@ type Props = {
   text: string;
 };
 
+const EDGE_PADDING = 100;
+
 export default function FlyingCard({ name, text }: Props) {
   const controls = useAnimation();
 
-  const padding = 100;
-  const maxX = window.innerWidth - padding;
-  const maxY = window.innerHeight - padding;
+  const getRandomEdgePosition = (): { x: number; y: number } => {
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight;
 
-  const startX = Math.random() * maxX;
-  const startY = Math.random() * maxY;
+    const edges = ["top", "bottom", "left", "right"];
+    const edge = edges[Math.floor(Math.random() * edges.length)];
 
-  const offsetX = Math.random() * 120 - 60;
-  const offsetY = Math.random() * 120 - 60;
+    if (edge === "top") {
+      return {
+        x: Math.random() * (screenW - EDGE_PADDING * 2) + EDGE_PADDING,
+        y: EDGE_PADDING,
+      };
+    } else if (edge === "bottom") {
+      return {
+        x: Math.random() * (screenW - EDGE_PADDING * 2) + EDGE_PADDING,
+        y: screenH - EDGE_PADDING,
+      };
+    } else if (edge === "left") {
+      return {
+        x: EDGE_PADDING,
+        y: Math.random() * (screenH - EDGE_PADDING * 2) + EDGE_PADDING,
+      };
+    } else {
+      // "right"
+      return {
+        x: screenW - EDGE_PADDING,
+        y: Math.random() * (screenH - EDGE_PADDING * 2) + EDGE_PADDING,
+      };
+    }
+  };
 
-  useEffect(() => {
-    controls.start({
-      x: startX + offsetX,
-      y: startY + offsetY,
+  const moveToNext = async () => {
+    const nextPos = getRandomEdgePosition();
+    await controls.start({
+      x: nextPos.x,
+      y: nextPos.y,
       transition: {
-        duration: 2 + Math.random() * 1.2,
-        ease: "linear",
-        repeat: Infinity,
-        repeatType: "reverse",
+        duration: 10 + Math.random() * 2, // 🎯 ช้าลง
+        ease: "easeInOut",
       },
     });
+    moveToNext(); // วนต่อ
+  };
+
+  useEffect(() => {
+    const startPos = getRandomEdgePosition();
+    controls.set({ x: startPos.x, y: startPos.y });
+    moveToNext();
   }, []);
 
   return (
     <motion.div
-      initial={{ x: startX, y: startY }}
       animate={controls}
-      className="absolute bg-white text-black rounded-xl shadow-lg flex items-center gap-3 p-3 max-w-sm border border-gray-300"
+      className="absolute bg-white text-black rounded-2xl shadow-xl flex items-center gap-5 p-5 max-w-lg border border-gray-400"
       style={{ pointerEvents: "none" }}
     >
       <img
         src={`/profile/${name}.jpg`}
         alt={name}
-        className="w-10 h-10 rounded-full object-cover border border-gray-400"
+        className="w-16 h-16 rounded-full object-cover border border-gray-500"
       />
       <div>
-        <p className="font-semibold capitalize">{name}</p>
-        <p className="text-sm text-gray-700">{text}</p>
+        <p className="font-bold capitalize text-xl">{name}</p>
+        <p className="text-lg text-gray-700">{text}</p>
       </div>
     </motion.div>
   );
