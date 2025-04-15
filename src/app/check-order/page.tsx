@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import { getCustomerByTwitter } from "@/services/customerService";
 import { CustomerType, mapCustomerToOrder, OrderType } from "@/utils/helper";
 import Image from "next/image";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
 import loadingAnim from "@/lottie/loading.json";
 
 const CheckOderPage = () => {
+  const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
   const [username, setUsername] = useState("");
   const [customerData, setCustomerData] = useState<CustomerType | null>(null);
   const [orderDetail, setOrderDetail] = useState<OrderType | null>(null);
