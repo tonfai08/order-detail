@@ -8,17 +8,19 @@ const names = ["pum", "film", "mint", "ton", "aom", "pond"];
 export default function MomentFormPage() {
   const [name, setName] = useState(names[0]);
   const [detail, setDetail] = useState("");
+  const [token, setToken] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async () => {
-    if (!detail.trim()) {
-      setMessage("⚠️ กรุณากรอกข้อความ");
+    if (!detail.trim() || !token.trim()) {
+      setMessage("⚠️ กรุณากรอกข้อความและโค้ดยืนยัน");
       return;
     }
     try {
-      await sendFloatingMessage(name, detail);
+      await sendFloatingMessage(name, detail, token);
       setMessage("✅ ส่งสำเร็จแล้ว!");
       setDetail("");
+      setToken("");
     } catch (err) {
       console.error(err);
       setMessage("❌ เกิดข้อผิดพลาดในการส่ง");
@@ -29,6 +31,7 @@ export default function MomentFormPage() {
     <main className="min-h-screen bg-gray-950 text-white p-6">
       <div className="bg-gray-900 p-6 rounded-xl max-w-xl mx-auto shadow-lg space-y-4">
         <h1 className="text-3xl font-bold mb-6">📝 ความดี</h1>
+
         <label className="block">
           <span className="text-gray-300">เลือกชื่อผู้ส่ง:</span>
           <select
@@ -52,6 +55,18 @@ export default function MomentFormPage() {
             value={detail}
             onChange={(e) => setDetail(e.target.value)}
             placeholder="พิมพ์ข้อความที่จะลอย..."
+          />
+        </label>
+
+        <label className="block">
+          <span className="text-gray-300">โค้ดยืนยัน (Token):</span>
+          <input
+            type="text"
+            className="mt-1 p-2 w-full bg-gray-800 text-white rounded-md border border-gray-600"
+            value={token}
+            onChange={(e) => setToken(e.target.value.toUpperCase())}
+            placeholder="กรอกโค้ด 6 ตัว เช่น AB12CD"
+            maxLength={6}
           />
         </label>
 
