@@ -1,12 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  CustomerType,
-  getDefaultSteps,
-  getOrderSteps,
-  Step,
-} from "@/utils/helper";
+import { CustomerType, getOrderSteps, StepData } from "@/utils/helper";
+import { ReceiptText, Package, Truck } from "lucide-react";
 const Timeline = ({
   customerData,
   direction: propDirection,
@@ -15,7 +11,14 @@ const Timeline = ({
   customerData: CustomerType;
 }) => {
   const [direction, setDirection] = useState(propDirection || "horizontal");
-  const [stepOrder, setStepOrder] = useState<Step[]>(getDefaultSteps());
+  const [stepOrder, setStepOrder] = useState<StepData[]>([]);
+
+  const iconMap = {
+    receipt: <ReceiptText className="w-6 h-6" />,
+    package: <Package className="w-6 h-6" />,
+    truck: <Truck className="w-6 h-6" />,
+  };
+
   useEffect(() => {
     if (!propDirection) {
       const handleResize = () => {
@@ -56,7 +59,7 @@ const Timeline = ({
                 : "border-gray-400 text-gray-400"
             } ${index === currentStepIndex ? "animate-pulse" : ""}`}
           >
-            {step.icon}
+            {iconMap[step.type]}
           </div>
 
           <div>
@@ -67,9 +70,9 @@ const Timeline = ({
             >
               {step.label}
             </p>
-            <p className="justify-start  flex md:justify-center text-sm text-gray-400">
+            <div className="justify-start  flex md:justify-center text-sm text-gray-400">
               {step.detail}
-            </p>
+            </div>
           </div>
         </div>
       ))}
@@ -88,7 +91,7 @@ const Timeline = ({
                 : "border-gray-400 text-gray-400"
             } ${index === currentStepIndex ? "animate-pulse" : ""}`}
           >
-            {step.icon}
+            {iconMap[step.type]}
           </div>
 
           <p
@@ -98,8 +101,22 @@ const Timeline = ({
           >
             {step.label}
           </p>
-
-          <p className="text-sm text-gray-400 text-center">{step.detail}</p>
+          {step.label === "Shipped" && customerData.postId ? (
+            <div className="text-sm text-center">
+              <a
+                href={`https://track.thailandpost.co.th/?trackNumber=${customerData.postId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline"
+              >
+                {customerData.postId}
+              </a>
+            </div>
+          ) : (
+            <div className="text-sm text-gray-400 text-center">
+              {step.detail}
+            </div>
+          )}
 
           {index !== stepOrder.length - 1 && (
             <div className="absolute top-2 left-full w-12 h-1 bg-gray-300"></div>
