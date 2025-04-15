@@ -21,7 +21,7 @@ export interface CustomerType {
 }
 export interface Step {
   label: string;
-  detail: string;
+  detail: ReactNode;
   completed: boolean;
   icon: ReactNode;
 }
@@ -45,7 +45,7 @@ export const mapCustomerToOrder = (customer: CustomerType): OrderType => {
 
 export const getDefaultSteps = (): Step[] => [
   {
-    label: "ตรวจสอบการชำระเงิน",
+    label: "Payment verify",
     detail: "ระบบกำลังตรวจสอบการชำระเงินของคุณ",
     completed: false,
     icon: <ReceiptText className="w-6 h-6" />,
@@ -62,38 +62,43 @@ export const getDefaultSteps = (): Step[] => [
     completed: false,
     icon: <Truck className="w-6 h-6" />,
   },
-  {
-    label: "Delivered",
-    detail: "สินค้าของคุณถูกจัดส่งถึงแล้ว",
-    completed: false,
-    icon: <CheckCircle className="w-6 h-6" />,
-  },
 ];
 
 export const getOrderSteps = (customerData: CustomerType) => {
   const baseSteps = [
     {
-      label: "ตรวจสอบการชำระเงิน",
-      detail: "ระบบกำลังตรวจสอบการชำระเงินของคุณ",
+      label: "Payment verified",
+      detail:
+        customerData.status !== "waiting-payment"
+          ? "ตรวจสอบการชำระเงินของคุณแล้ว"
+          : "ระบบกำลังตรวจสอบการชำระเงินของคุณ",
       icon: <ReceiptText className="w-6 h-6" />,
       completed: false,
     },
     {
-      label: "Processing",
-      detail: "คำสั่งซื้อของคุณกำลังถูกดำเนินการ",
+      label: customerData.status === "shipped" ? "Processed" : "Processing",
+      detail:
+        customerData.status === "shipped"
+          ? "คำสั่งซื้อของคุณถูกดำเนินการแล้ว"
+          : "คำสั่งซื้อของคุณกำลังถูกดำเนินการ",
       icon: <Package className="w-6 h-6" />,
       completed: false,
     },
     {
       label: "Shipped",
-      detail: "คำสั่งซื้อของคุณถูกจัดส่งแล้ว",
+      detail: customerData.postId ? (
+        <a
+          href={`https://track.thailandpost.co.th/?trackNumber=${customerData.postId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 underline"
+        >
+          {customerData.postId}
+        </a>
+      ) : (
+        "คำสั่งซื้อของคุณถูกจัดส่งแล้ว"
+      ),
       icon: <Truck className="w-6 h-6" />,
-      completed: false,
-    },
-    {
-      label: "Delivered",
-      detail: "สินค้าของคุณถูกจัดส่งถึงแล้ว",
-      icon: <CheckCircle className="w-6 h-6" />,
       completed: false,
     },
   ];
@@ -109,13 +114,8 @@ export const getOrderSteps = (customerData: CustomerType) => {
     case "shipped":
       return baseSteps.map((step, index) => ({
         ...step,
-        completed: index < 2,
+        completed: index <= 2,
       }));
-    case "shipped":
-      if (customerData.postStatus === "success") {
-        return baseSteps.map((step) => ({ ...step, completed: true }));
-      }
-      return baseSteps;
     default:
       return baseSteps;
   }

@@ -61,13 +61,13 @@ const Timeline = ({
 
           <div>
             <p
-              className={`text-lg font-medium ${
+              className={`justify-start md:justify-center flex text-lg font-medium ${
                 step.completed ? "text-green-500" : "text-gray-500"
               }`}
             >
               {step.label}
             </p>
-            <p className="hidden md:flex text-sm text-gray-400">
+            <p className="justify-start  flex md:justify-center text-sm text-gray-400">
               {step.detail}
             </p>
           </div>
