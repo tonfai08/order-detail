@@ -70,9 +70,22 @@ const Timeline = ({
             >
               {step.label}
             </p>
-            <div className="justify-start  flex md:justify-center text-sm text-gray-400">
-              {step.detail}
-            </div>
+            {step.label === "Shipped" && customerData.postId ? (
+              <div className="text-xs md:text-sm text-center">
+                <a
+                  href={`https://track.thailandpost.co.th/?trackNumber=${customerData.postId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 underline"
+                >
+                  {customerData.postId}
+                </a>
+              </div>
+            ) : (
+              <div className="text-xs md:text-sm text-gray-400 text-center">
+                {step.detail}
+              </div>
+            )}
           </div>
         </div>
       ))}
@@ -102,7 +115,7 @@ const Timeline = ({
             {step.label}
           </p>
           {step.label === "Shipped" && customerData.postId ? (
-            <div className="text-sm text-center">
+            <div className="text-xs md:text-sm text-center">
               <a
                 href={`https://track.thailandpost.co.th/?trackNumber=${customerData.postId}`}
                 target="_blank"
@@ -113,7 +126,7 @@ const Timeline = ({
               </a>
             </div>
           ) : (
-            <div className="text-sm text-gray-400 text-center">
+            <div className="text-xs md:text-sm text-gray-400 text-center">
               {step.detail}
             </div>
           )}
