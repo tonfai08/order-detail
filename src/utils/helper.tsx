@@ -51,7 +51,7 @@ export const mapCustomerToOrder = (customer: CustomerType): OrderType => {
     krtBox: customer.books?.krtBox ?? 0,
     khnBox: customer.books?.khnBox ?? 0,
     blockbuster: customer.books?.blockbuster ?? 0,
-    additional: customer.books?.additional ?? "",
+    additional: customer.books?.additional ?? 0,
     set: customer.setBook ?? "",
     postType: customer.typeShipping ?? "",
     totalPrice: customer.totalPrice ?? 0,
