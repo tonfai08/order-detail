@@ -6,13 +6,13 @@ const OrderDetail = ({ orderData }: { orderData: OrderType }) => {
   const order = orderData;
 
   const displayItems = [
-    { label: "📗 KRTSK Book", value: order.krtBook, unit: "เล่ม" },
-    { label: "📘 KHN Book", value: order.khnBook, unit: "เล่ม" },
+    { label: "🎞️ KRTSK Book", value: order.krtBook, unit: "เล่ม" },
+    { label: "🎞️ KHN Book", value: order.khnBook, unit: "เล่ม" },
     { label: "🎬 Premiere", value: order.premiere, unit: "เซ็ต" },
-    { label: "🏟️ KRTSK Box Office", value: order.krtBox, unit: "เซ็ต" },
-    { label: "🏟️ KHN Box Office", value: order.khnBox, unit: "เซ็ต" },
+    { label: "📽️ KRTSK Box Office", value: order.krtBox, unit: "เซ็ต" },
+    { label: "📽️ KHN Box Office", value: order.khnBox, unit: "เซ็ต" },
     { label: "🌟 Blockbuster", value: order.blockbuster, unit: "เซ็ต" },
-    { label: "📝 Additional order", value: order.additional, unit: "ชิ้น" },
+    { label: "🍿 Additional order", value: order.additional, unit: "ชิ้น" },
   ];
 
   return (
