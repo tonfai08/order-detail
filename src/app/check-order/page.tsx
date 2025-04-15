@@ -76,7 +76,11 @@ const CheckOderPage = () => {
           />
         </div>
 
-        <div className="flex flex-col bg-gray-900 border border-gray-950 shadow-xl shadow-gray-500/50 rounded-md my-4 p-4 md:p-8">
+        <div className="flex flex-col bg-gray-900 border border-gray-950 shadow-xl shadow-gray-500/30 rounded-md my-4 p-4 md:p-8">
+          <h1 className="pb-8 text-2xl font-bold text-gray-300">
+            ตรวจสอบข้อมูล <br className="block sm:hidden" />
+            Pre-order
+          </h1>
           <div className="flex flex-col md:flex-row justify-center items-center gap-4">
             <input
               type="text"
@@ -86,7 +90,7 @@ const CheckOderPage = () => {
               onChange={(e) => setUsername(e.target.value)}
               onKeyDown={handleKeyPress}
               className="px-4 py-2 border-2 border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-200 text-white"
-              placeholder="Enter Twitter username"
+              placeholder="twitter account (e.g. @krtskandkhn_th)"
             />
             <button
               className="border border-gray-700 rounded-md text-white font-bold bg-gray-500 py-2 px-9 transition-all duration-200 hover:bg-gray-600 active:bg-gray-700"
@@ -97,10 +101,9 @@ const CheckOderPage = () => {
           </div>
 
           {error && <p className="text-red-400 mt-2">{error}</p>}
-
           <>
             {customerData && orderDetail && (
-              <div className="px-2 py-6 md:px-6">
+              <div className="px-2 py-8 md:px-6">
                 <OrderDetail orderData={orderDetail} />
               </div>
             )}
@@ -114,6 +117,11 @@ const CheckOderPage = () => {
             )}
           </>
         </div>
+      </div>
+      <div className="bg-gray-700 w-full text-white flex justify-center p-2 my-7 text-xs text-center  ">
+        อัปเดตข้อมูลภายใน 48 ชั่วโมง
+        <br className="block sm:hidden" /> หากพบปัญหา สามารถติดต่อได้ที่ dm
+        @krtskandkhn_th
       </div>
     </main>
   );
