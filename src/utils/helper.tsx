@@ -1,4 +1,4 @@
-import { ReceiptText, Package, Truck, CheckCircle } from "lucide-react";
+import { ReceiptText, Package, Truck } from "lucide-react";
 import { ReactNode } from "react";
 
 export interface CustomerType {
