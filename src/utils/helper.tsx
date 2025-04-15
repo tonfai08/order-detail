@@ -1,6 +1,3 @@
-import { ReceiptText, Package, Truck } from "lucide-react";
-import { ReactNode } from "react";
-
 export interface CustomerType {
   _id: string;
   twitter: string;
