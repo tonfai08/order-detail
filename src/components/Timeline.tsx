@@ -77,7 +77,10 @@ const Timeline = ({
   ) : (
     <div className="flex items-center justify-center space-x-8 p-6">
       {stepOrder.map((step, index) => (
-        <div key={index} className="flex flex-col items-center relative">
+        <div
+          key={index}
+          className="flex flex-col items-center relative flex-1 max-w-[220px]"
+        >
           <div
             className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
               step.completed
@@ -95,6 +98,7 @@ const Timeline = ({
           >
             {step.label}
           </p>
+
           <p className="text-sm text-gray-400 text-center">{step.detail}</p>
 
           {index !== stepOrder.length - 1 && (

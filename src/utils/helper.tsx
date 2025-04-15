@@ -6,8 +6,15 @@ export interface CustomerType {
   twitter: string;
   __v: number;
   address: string;
-  book1: number;
-  book2: number;
+  books: {
+    krtBook: number;
+    khnBook: number;
+    premiere: number;
+    krtBox: number;
+    khnBox: number;
+    blockbuster: number;
+    additional: number;
+  };
   createdAt: string;
   name: string;
   postId: string | null;
@@ -19,6 +26,7 @@ export interface CustomerType {
   totalPrice: number;
   typeShipping: string;
 }
+
 export interface Step {
   label: string;
   detail: ReactNode;
@@ -26,8 +34,13 @@ export interface Step {
   icon: ReactNode;
 }
 export interface OrderType {
-  book1: number;
-  book2: number;
+  krtBook: number;
+  khnBook: number;
+  premiere: number;
+  krtBox: number;
+  khnBox: number;
+  blockbuster: number;
+  additional: number;
   set: string;
   postType: string;
   totalPrice: number;
@@ -35,8 +48,13 @@ export interface OrderType {
 
 export const mapCustomerToOrder = (customer: CustomerType): OrderType => {
   return {
-    book1: customer.book1 ?? 0,
-    book2: customer.book2 ?? 0,
+    krtBook: customer.books?.krtBook ?? 0,
+    khnBook: customer.books?.khnBook ?? 0,
+    premiere: customer.books?.premiere ?? 0,
+    krtBox: customer.books?.krtBox ?? 0,
+    khnBox: customer.books?.khnBox ?? 0,
+    blockbuster: customer.books?.blockbuster ?? 0,
+    additional: customer.books?.additional ?? "",
     set: customer.setBook ?? "",
     postType: customer.typeShipping ?? "",
     totalPrice: customer.totalPrice ?? 0,

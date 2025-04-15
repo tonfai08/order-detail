@@ -3,27 +3,32 @@
 import { OrderType } from "@/utils/helper";
 
 const OrderDetail = ({ orderData }: { orderData: OrderType }) => {
-  const order: OrderType = {
-    book1: orderData?.book1 ?? 0,
-    book2: orderData?.book2 ?? 0,
-    set: orderData?.set ?? "",
-    postType: orderData?.postType ?? "",
-    totalPrice: orderData?.totalPrice ?? 0,
-  };
+  const order = orderData;
+
+  const displayItems = [
+    { label: "📗 KRTSK Book", value: order.krtBook, unit: "เล่ม" },
+    { label: "📘 KHN Book", value: order.khnBook, unit: "เล่ม" },
+    { label: "🎬 Premiere", value: order.premiere, unit: "เซ็ต" },
+    { label: "🏟️ KRTSK Box Office", value: order.krtBox, unit: "เซ็ต" },
+    { label: "🏟️ KHN Box Office", value: order.khnBox, unit: "เซ็ต" },
+    { label: "🌟 Blockbuster", value: order.blockbuster, unit: "เซ็ต" },
+    { label: "📝 Additional order", value: order.additional, unit: "ชิ้น" },
+  ];
 
   return (
     <div className="flex flex-col items-start lg:items-center gap-6 p-4 md:p-6 relative text-white border border-gray-800 shadow-[0_0_20px_rgba(107,114,128,0.8)] rounded-md">
       <h2 className="text-2xl font-bold text-gray-300">รายละเอียดคำสั่งซื้อ</h2>
 
-      <div className="flex justify-between w-full max-w-md">
-        <span>📖 หนังสือเล่ม 1:</span>
-        <span className="font-semibold">{order.book1} เล่ม</span>
-      </div>
-
-      <div className="flex justify-between w-full max-w-md">
-        <span>📖 หนังสือเล่ม 2:</span>
-        <span className="font-semibold">{order.book2} เล่ม</span>
-      </div>
+      {displayItems
+        .filter((item) => item.value > 0)
+        .map((item, index) => (
+          <div key={index} className="flex justify-between w-full max-w-md">
+            <span>{item.label}:</span>
+            <span className="font-semibold">
+              {item.value} {item.unit}
+            </span>
+          </div>
+        ))}
 
       <div className="flex justify-between w-full max-w-md">
         <span>🎁 Set ที่เลือก:</span>
