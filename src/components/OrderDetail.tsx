@@ -31,11 +31,6 @@ const OrderDetail = ({ orderData }: { orderData: OrderType }) => {
         ))}
 
       <div className="flex justify-between w-full max-w-md">
-        <span>🎁 Set ที่เลือก:</span>
-        <span className="font-semibold">{order.set}</span>
-      </div>
-
-      <div className="flex justify-between w-full max-w-md">
         <span>📦 ประเภทการส่ง:</span>
         <span className="font-semibold">{order.postType}</span>
       </div>
