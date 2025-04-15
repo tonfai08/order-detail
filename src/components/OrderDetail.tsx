@@ -37,7 +37,9 @@ const OrderDetail = ({ orderData }: { orderData: OrderType }) => {
 
       <div className="flex justify-between w-full max-w-md text-lg">
         <span>💰 ราคารวม:</span>
-        <span className="font-bold text-green-400">{order.totalPrice} บาท</span>
+        <span className="font-bold text-green-400">
+          {order.totalPrice.toLocaleString()} บาท
+        </span>
       </div>
     </div>
   );
