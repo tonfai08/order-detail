@@ -11,6 +11,9 @@ export interface CustomerType {
     khnBox: number;
     blockbuster: number;
     additional: number;
+    additionalKRTSK: number;
+    additionalKHN: number;
+    additionalKRTSKKHN: number;
   };
   createdAt: string;
   name: string;
@@ -38,6 +41,9 @@ export interface OrderType {
   khnBox: number;
   blockbuster: number;
   additional: number;
+  additionalKRTSK: number;
+  additionalKHN: number;
+  additionalKRTSKKHN: number;
   set: string;
   postType: string;
   totalPrice: number;
@@ -52,6 +58,9 @@ export const mapCustomerToOrder = (customer: CustomerType): OrderType => {
     khnBox: customer.books?.khnBox ?? 0,
     blockbuster: customer.books?.blockbuster ?? 0,
     additional: customer.books?.additional ?? 0,
+    additionalKRTSK: customer.books?.additionalKRTSK ?? 0,
+    additionalKHN: customer.books?.additionalKHN ?? 0,
+    additionalKRTSKKHN: customer.books?.additionalKRTSKKHN ?? 0,
     set: customer.setBook ?? "",
     postType: customer.typeShipping ?? "",
     totalPrice: customer.totalPrice ?? 0,

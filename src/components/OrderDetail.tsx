@@ -13,6 +13,21 @@ const OrderDetail = ({ orderData }: { orderData: OrderType }) => {
     { label: "📽️ KHN Box Office", value: order.khnBox, unit: "เซ็ต" },
     { label: "🌟 Blockbuster", value: order.blockbuster, unit: "เซ็ต" },
     { label: "🍿 Additional order", value: order.additional, unit: "ชิ้น" },
+    {
+      label: "🧸 KRTSK Acrylic Standee",
+      value: order.additionalKRTSK,
+      unit: "ชิ้น",
+    },
+    {
+      label: "🧸 KHN Acrylic Standee",
+      value: order.additionalKHN,
+      unit: "ชิ้น",
+    },
+    {
+      label: "🧸 KRTSK & KHN Acrylic Standee",
+      value: order.additionalKRTSKKHN,
+      unit: "เซ็ต",
+    },
   ];
 
   return (
